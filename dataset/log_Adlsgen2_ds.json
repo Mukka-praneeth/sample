@@ -2,7 +2,7 @@
 	"name": "log_Adlsgen2_ds",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AdventureDLS_ls",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
