@@ -1,0 +1,9 @@
+{
+	"name": "adventuresale-df",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a107f6b6-cad9-4f44-8dcf-faee38e0e054",
+		"tenantId": "e347d888-6a35-4bc5-9069-9572891ec1d3"
+	}
+}

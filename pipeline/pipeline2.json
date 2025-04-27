@@ -1,0 +1,113 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			},
+			{
+				"name": "logfile_df",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "logfile_df",
+						"type": "DataFlowReference",
+						"parameters": {
+							"adfName": {
+								"value": "'@{pipeline().DataFactory}'",
+								"type": "Expression"
+							},
+							"TriggerName": {
+								"value": "'@{pipeline().TriggerName}'",
+								"type": "Expression"
+							},
+							"pipelineName": {
+								"value": "'@{pipeline().Pipeline}'",
+								"type": "Expression"
+							},
+							"TriggerTime": {
+								"value": "'@{formatDateTime(pipeline().TriggerTime,'yyyy-mm-dd')}'",
+								"type": "Expression"
+							},
+							"Runid": {
+								"value": "'@{pipeline().RunId}'",
+								"type": "Expression"
+							},
+							"FileName": {
+								"value": "'@{variables('FileName')}'",
+								"type": "Expression"
+							}
+						},
+						"datasetParameters": {
+							"sink1": {
+								"File_name": {
+									"value": "@variables('FileName')",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "FileName",
+					"value": {
+						"value": "@concat(formatDateTime(utcNow(),'yyyy-MM-dd'),'_log.csv')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"FileName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-27T06:05:47Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

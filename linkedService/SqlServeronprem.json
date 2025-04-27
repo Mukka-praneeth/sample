@@ -1,0 +1,29 @@
+{
+	"name": "SqlServeronprem",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "Praneeth",
+			"database": "AdventureWorksLT2022",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "Praneeth",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "password",
+				"secretVersion": "696009c0bbde4c5b8637cfd26949ab37"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntimeonprem",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

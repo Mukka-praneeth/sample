@@ -1,0 +1,75 @@
+{
+	"name": "logfile_df",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "log_Adlsgen2_ds",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "AdventureDLS_ls",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     adfName as string,",
+				"     TriggerName as string,",
+				"     pipelineName as string,",
+				"     TriggerTime as string,",
+				"     Runid as string,",
+				"     FileName as string",
+				"}",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(ADFname = $adfName,",
+				"          pipelineNAme = $pipelineName,",
+				"          TriggerName = $TriggerName,",
+				"          RunId = $Runid,",
+				"          triggerTime = $TriggerTime) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          ADFname,",
+				"          pipelineNAme,",
+				"          TriggerName,",
+				"          RunId,",
+				"          triggerTime",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:[($FileName)],",
+				"     truncate: true,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

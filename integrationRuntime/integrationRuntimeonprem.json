@@ -1,0 +1,7 @@
+{
+	"name": "integrationRuntimeonprem",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "to get data from onprem sql server data to datalake\n"
+	}
+}
