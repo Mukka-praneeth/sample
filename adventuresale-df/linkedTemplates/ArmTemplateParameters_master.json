@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adventuresale-df"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDatabrickssbronzr2silver_accessToken": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adventuresales.dfs.core.windows.net/"
+		},
+		"AzureDatabrickssbronzr2silver_properties_typeProperties_existingClusterId": {
+			"value": "0418-061230-yaqb3d0s"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://adventurekeys.vault.azure.net/"
+		},
+		"SqlServeronprem_properties_typeProperties_server": {
+			"value": "Praneeth"
+		},
+		"SqlServeronprem_properties_typeProperties_database": {
+			"value": "AdventureWorksLT2022"
+		},
+		"SqlServeronprem_properties_typeProperties_userName": {
+			"value": "Praneeth"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
